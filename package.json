@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
@@ -19,6 +20,7 @@
   "devDependencies": {
     "@nuxt/types": "^2.15.8",
     "@nuxt/typescript-build": "^2.1.0",
+    "push-dir": "^0.4.1",
     "sass": "^1.54.8",
     "sass-loader": "^10.3.1"
   }
