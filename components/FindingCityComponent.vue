@@ -90,7 +90,7 @@
                     })
             },
             updateCitysArray(str: string): void{
-                let url = `http://api.openweathermap.org/geo/1.0/direct?q=${str}&limit=5&appid=e8157b3a99bf0d5c82e7c5b17138366c`;
+                let url = `https://api.openweathermap.org/geo/1.0/direct?q=${str}&limit=5&appid=e8157b3a99bf0d5c82e7c5b17138366c`;
                 fetch(url).then(res  => res.json())
                     .then(data => {
                         var cities:City[] = [];
