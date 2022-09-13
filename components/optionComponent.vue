@@ -111,11 +111,14 @@ import FindingCityComponent from "FindingCityComponent.vue"
                 var element:HTMLElement = (e.parentNode as HTMLElement).parentNode as HTMLElement;
                 if ((this as any).active) {
                     (this as any).active = false;
+                    (this as any).$emit("openOption",false)
                     element.classList.remove((this as any).$style.active);
                     return;
                 } 
                 (this as any).active = true;
+                (this as any).$emit("openOption",true)
                 element.classList.add((this as any).$style.active)
+
             },
             newLocation(data:Weather){
                 (this as any).$emit("addLocation",data);

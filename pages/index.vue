@@ -2,43 +2,53 @@ import FindingCityComponent from "FindingCityComponent.vue"
 import WeatherInfoComponent from "WeatherInfoComponent.vue"
 <template>
   <div :class="$style.container">
-    <optionComponent v-if="locationArray.length" @addLocation="addLocation" @deliteCity="deliteCity" @sortCities="sortCities" :locationArray="locationArray"></optionComponent>
+    <optionComponent v-if="locationArray.length" @addLocation="addLocation" @deliteCity="deliteCity" @sortCities="sortCities" @openOption="openOption" :locationArray="locationArray"></optionComponent>
     <FindingCityComponent v-if="!locationArray.length" @addLocation="addLocation" placeholder="What is your position"></FindingCityComponent>
-    <WeatherInfoComponent v-for="city in locationArray" :element="city" v-bind:key="city.name"></WeatherInfoComponent>
+    <template v-if="!optionIsOpen">
+      <WeatherInfoComponent v-for="city in locationArray" :element="city" v-bind:key="city.name"></WeatherInfoComponent>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import {Weather} from "../assets/Classes";
   
-import Vue from 'vue'
+import Vue, { nextTick } from 'vue'
 
 export default Vue.extend({
   name: 'weatherReport',
   data: function(){
     return {
       locationArray: [] as Weather[],
+      optionIsOpen: false as boolean,
     }
   },
   created(){
-    window.addEventListener('load', function () {
-      parent.postMessage(document.documentElement.scrollHeight, '*');
-    });
     var storage:Weather[]|null = JSON.parse(window.localStorage.getItem('locations') as string );
     if (storage != null) {
       this.locationArray = storage;
+    }
+  },
+  mounted() {
+    if (document.querySelector(" weather-widget iframe")) {
+      parent.postMessage(document.documentElement.scrollHeight, '*');      
     }
   },
   watch:{
     locationArray: {
       handler(newValue) {
         window.localStorage.setItem("locations",JSON.stringify(newValue))
-        parent.postMessage(document.documentElement.scrollHeight, '*');
+        if (document.querySelector(" weather-widget iframe")) {
+          parent.postMessage(document.documentElement.scrollHeight, '*');      
+        }
       },
       deep: true
     }
   },  
   methods:{
+    openOption(isopen:boolean){
+      this.optionIsOpen = isopen
+    },
     sortCities(){
       this.locationArray.sort(( a:Weather, b:Weather ) => a.index - b.index)
     },
