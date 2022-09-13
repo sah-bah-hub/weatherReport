@@ -1,6 +1,6 @@
 <h1> it`s Weather widget </h1><br>
 You cat add this widget on your syte added this construction <br>
-<br><br>
+<br>
 <weather-widget/><br>
 <script type="text/javascript" src="https://sah-bah-hub.github.io/weatherReport/widget.js">
 <br><br>
