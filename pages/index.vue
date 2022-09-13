@@ -21,11 +21,10 @@ export default Vue.extend({
     }
   },
   created(){
-    var element:HTMLElement|null = document.querySelector("weather-widget");
-    var widgetContainer:HTMLElement|null = document.querySelector(`.${(this as any).$style.container}`);
-    if (widgetContainer != null && element != null) {
-      element.append(widgetContainer)
-    }    
+    var widgetContainer:any  = document.querySelector("weather-widget iframe");
+    if (widgetContainer != null) {
+        widgetContainer.style.height = widgetContainer.contentWindow.document.body.scrollHeight + 'px';   
+    }
     var storage:Weather[]|null = JSON.parse(window.localStorage.getItem('locations') as string );
     if (storage != null) {
       this.locationArray = storage;
