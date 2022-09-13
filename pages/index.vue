@@ -21,7 +21,9 @@ export default Vue.extend({
     }
   },
   created(){
-    parent.postMessage(document.documentElement.scrollHeight, '*');
+    window.addEventListener('load', function () {
+      parent.postMessage(document.documentElement.scrollHeight, '*');
+    });
     var storage:Weather[]|null = JSON.parse(window.localStorage.getItem('locations') as string );
     if (storage != null) {
       this.locationArray = storage;
