@@ -21,10 +21,7 @@ export default Vue.extend({
     }
   },
   created(){
-    var widgetContainer:any  = document.querySelector("weather-widget iframe");
-    if (widgetContainer != null) {
-        widgetContainer.style.height = widgetContainer.contentWindow.document.body.scrollHeight + 'px';   
-    }
+    parent.postMessage(document.documentElement.scrollHeight, '*');
     var storage:Weather[]|null = JSON.parse(window.localStorage.getItem('locations') as string );
     if (storage != null) {
       this.locationArray = storage;
@@ -34,6 +31,7 @@ export default Vue.extend({
     locationArray: {
       handler(newValue) {
         window.localStorage.setItem("locations",JSON.stringify(newValue))
+        parent.postMessage(document.documentElement.scrollHeight, '*');
       },
       deep: true
     }
