@@ -33,7 +33,7 @@ export default Vue.extend({
     parent.postMessage(document.documentElement.scrollHeight, '*');
   },
   updated(){
-    console.log("asdasdasd")
+    parent.postMessage(document.documentElement.scrollHeight, '*');
   },  
   watch:{
     locationArray: {
