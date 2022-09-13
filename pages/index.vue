@@ -30,17 +30,15 @@ export default Vue.extend({
     }
   },
   mounted() {
-    if (document.querySelector(" weather-widget iframe")) {
-      parent.postMessage(document.documentElement.scrollHeight, '*');      
-    }
+    parent.postMessage(document.documentElement.scrollHeight, '*');
   },
+  updated(){
+    console.log("asdasdasd")
+  },  
   watch:{
     locationArray: {
       handler(newValue) {
         window.localStorage.setItem("locations",JSON.stringify(newValue))
-        if (document.querySelector(" weather-widget iframe")) {
-          parent.postMessage(document.documentElement.scrollHeight, '*');      
-        }
       },
       deep: true
     }
